@@ -13,6 +13,9 @@ env:
     - PHPCS=0
     - RUN_TESTS=1
 
+before_install:
+  - curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-2.1.0.deb && sudo dpkg -i --force-confnew elasticsearch-2.1.0.deb
+
 services:
   - elasticsearch
 
