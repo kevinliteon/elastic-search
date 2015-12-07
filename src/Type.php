@@ -372,9 +372,14 @@ class Type implements RepositoryInterface, EventDispatcherInterface
     {
         $query = $this->query();
         $query->where($conditions);
-        $type = $this->connection()->getIndex()->getType($this->name());
+        $index = $this->connection()->getIndex();
+        $type = $index->getType($this->name());
         $response = $type->deleteByQuery($query->compileQuery());
-        return $response->isOk();
+        $isOk = $response->isOk();
+        if ($isOk) {
+            $index->refresh();
+        }
+        return $isOk;
     }
 
     /**

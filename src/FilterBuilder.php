@@ -2,6 +2,7 @@
 
 namespace Cake\ElasticSearch;
 
+use Elastica\Exception\DeprecatedException;
 use Elastica\Filter;
 use Elastica\Filter\AbstractFilter;
 use Elastica\Query\AbstractQuery;
@@ -411,17 +412,20 @@ class FilterBuilder
      * }}}
      *
      * @param string $path A dot separated string denoting the path to the property to filter.
-     * @param \Elastica\Query\AbstractQuery|\Elastica\Filter\AbstractFilter $filter The filtering conditions.
-     * @return \Elastica\Filter\Nested
+     * @param \Elastica\Query\AbstractQuery $filter The filtering conditions.
+     * @return \Elastica\Query\Nested
      * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-filter.html
+     * @todo wait for https://github.com/ruflin/Elastica/issues/1001
      */
     public function nested($path, $filter)
     {
-        $nested = new Filter\Nested();
+        // $nested = new Filter\Nested();
+        $nested = new \Elastica\Query\Nested();
         $nested->setPath($path);
 
         if ($filter instanceof AbstractFilter) {
-            $nested->setFilter($filter);
+            throw new DeprecatedException();
+            // $nested->setFilter($filter);
         }
 
         if ($filter instanceof AbstractQuery) {

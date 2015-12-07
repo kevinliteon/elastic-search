@@ -123,14 +123,15 @@ class TestFixture implements FixtureInterface
      * Drops a mapping and all its related data.
      *
      * @param \Cake\Datasource\ConnectionInterface $db The Elasticsearch connection
+     * @todo https://www.elastic.co/guide/en/elasticsearch/reference/2.1/indices-delete-mapping.html
      * @return void
      */
     public function drop(ConnectionInterface $db)
     {
-        $index = $db->getIndex();
-        $type = $index->getType($this->table);
-        $type->delete();
-        $index->refresh();
+//        $index = $db->getIndex();
+//        $type = $index->getType($this->table);
+//        $type->delete();
+//        $index->refresh();
     }
 
     /**
